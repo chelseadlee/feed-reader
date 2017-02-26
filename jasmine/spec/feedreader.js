@@ -31,12 +31,40 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-
+         it('have a url defined', function() {
+            allFeeds.forEach(function(feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url).not.toBeFalsy();
+            });
+         });
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+         it('have a name defined', function() {
+            allFeeds.forEach(function(feed) {
+                expect(feed.name).toBeDefined();
+                expect(feed.name).not.toBeFalsy();
+            });
+         });
+    });
+
+    describe('The Menu', function() {
+        var hiddenMenu = $('body').hasClass('menu-hidden'),
+            menuIcon = $('.menu-icon-link');
+
+        it('is hidden by default', function() {
+            expect(hiddenMenu).toBe(true);
+        });
+
+        it('toggles when icon is clicked', function() {
+            menuIcon.click();
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+            menuIcon.click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+        });
+
     });
 
 
@@ -53,6 +81,22 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+    describe('Initial Entries', function() {
+        var initialEntry = 0,
+            feedContainer = $('.feed');
+
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
+
+        it('should have entries', function(done) {
+            expect($('.feed').find('.entry')).toBeTruthy();
+            done();
+        });
+
+    });
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
@@ -62,6 +106,8 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+
+
 
     /* TODO: Write a new test suite named "New Feed Selection"
 

@@ -53,7 +53,7 @@ function init() {
 
                  var container = $('.feed'),
                      title = $('.header-title'),
-                     entries = result.feed.entries,
+                     entries = result && result.feed && result.feed.entries,
                      entriesLen = entries.length,
                      entryTemplate = Handlebars.compile($('.tpl-entry').html());
 
