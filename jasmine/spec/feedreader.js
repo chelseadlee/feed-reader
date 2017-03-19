@@ -33,8 +33,8 @@ $(function() {
 
          it('have a url defined', function() {
             allFeeds.forEach(function(feed) {
-                expect(feed.url).toBeDefined();
-                expect(feed.url).not.toBeFalsy();
+                expect(feed.url).toBeTruthy();
+                expect(feed.url.length).not.toBe(0);
             });
          });
 
@@ -91,7 +91,7 @@ $(function() {
         });
 
         it('should have entries', function(done) {
-            expect($('.feed').find('.entry')).toBeTruthy();
+            expect($('.feed').find('.entry').length).not.toBe(0);
             done();
         });
 
@@ -121,16 +121,10 @@ $(function() {
 
         it('should be new content - entry titles', function(done) {
             // set origContent to array of all entry titles
-            var origContent = $('.entry > h2').toArray()
-                .map(function(header) {
-                    return header.innerHTML;
-                });
+            var oldFeed = $('.feed').html();
             loadFeed(1, function() {
-                var newContent = $('.entry > h2').toArray()
-                    .map(function(header) {
-                        return header.innerHTML;
-                    });
-                expect(newContent).not.toBe(origContent);
+                var newFeed = $('.feed').html();
+                expect(newFeed).not.toBe(oldFeed);
                 done();
             });
         });
